@@ -1,0 +1,10 @@
+.editorconfig
+typings
+**/app/**/*.js
+**/app/**/*.map
+node_modules
+npm-debug.log
+warehouse/dist
+jspm_packages
+bower_components
+99_final
