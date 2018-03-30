@@ -6,7 +6,14 @@ import { Product } from '../shared/product';
 @Component({
   selector: 'nw-ship-order',
   templateUrl: './ship-order.component.html',
-  styleUrls: ['./ship-order.component.css']
+  styleUrls: ['./ship-order.component.css'],
+  styles: [`.big-checkbox{
+    transform: scale(2);
+  }`, `
+  .test-blue{
+    background-color: blue;
+  }
+    `]
 })
 export class ShipOrderComponent implements OnInit {
 
@@ -20,11 +27,11 @@ export class ShipOrderComponent implements OnInit {
     this.order.orderDate = new Date();
     this.order.shipVia = 1;
     this.order.shipping = 10;
-    this.order.shipName = "Ororo Monroe";
+    this.order.shipName = "Jonathan Hawbecker";
     this.order.shipAddress = "777 Placeholder Pl";
-    this.order.shipCity = "Birnin Zana";
-    this.order.shipRegion = "RG";
-    this.order.shipCountry = "Wakanda";
+    this.order.shipCity = "Camp Hill";
+    this.order.shipRegion = "PA";
+    this.order.shipCountry = "USA";
     this.order.shipPostalCode = "5T4N-L33";
     this.order.status = 0;
     this.order.lines = [];

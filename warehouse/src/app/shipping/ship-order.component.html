@@ -1,5 +1,5 @@
 <div class="alert alert-success">
-  Order status: Ready to ship
+ Status {{ order.status }}
 </div>
 <div class="alert alert-info">
   <h3>Instructions</h3>
@@ -13,13 +13,13 @@
 <section id="orderInfo">
   <ul class="list-group">
     <li class="list-group-item">
-      Order number: 11065
+      Order number: {{ order.orderID }}
     </li>
     <li class="list-group-item">
-      Order date: 2017-06-10T10:54:24.384Z
+      Order date: {{ order.orderDate }}
     </li>
     <li class="list-group-item">
-      Ship via: 1
+      Ship via: {{ order.shipVia }}
     </li>
   </ul>
 </section>
@@ -36,14 +36,14 @@
     </thead>
     <tbody>
       <tr>
-        <td><input type="checkbox"></td>
-        <button class="btn">Get best location</button>
+        <td><input class="big-checkbox" type="checkbox"></td>
+        <button class="btn test-blue">Get best location</button>
         <td>30</td>
         <td><img src="/assets/images/productImages/30.jpg"></td>
         <td>4</td>
       </tr>
       <tr>
-        <td><input type="checkbox"></td>
+        <td><input class="big-checkbox"  type="checkbox"></td>
         <button class="btn">Get best location</button>
         <td>54</td>
         <td><img src="/assets/images/productImages/54.jpg"></td>
@@ -59,9 +59,9 @@
 <section id="shippingLabel">
   <h3>Shipping Label</h3>
   <pre>
-    Victor Von Doom
-    1 Imperial Way
-    Latvia City, CL T4E-2H8
-    Latvia
+      {{ order.shipName }}
+      {{ order.shipAddress }}
+      {{ order.shipCity }}, {{ order.shipRegion }} {{ order.shipPostalCode }}
+      {{ order.shipCountry }}
     </pre>
 </section>

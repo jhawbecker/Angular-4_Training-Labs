@@ -1,0 +1,15 @@
+.bonusHeaderCSS{
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+.bonusBodyCSS{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.bonusRowCSS{
+    border-top: 1px solid black;
+    padding: 8px;
+    cursor: pointer;
+}

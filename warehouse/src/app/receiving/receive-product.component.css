@@ -1,0 +1,6 @@
+#orderContents img{
+    height: 50px;
+}
+#orderContents td{
+    color: red;
+}
