@@ -1,13 +1,34 @@
-<div class="alert alert-success">
- Status {{ order.status }}
+<div [ngClass]="{
+  'alert-success': order.status===0,
+  'alert-danger': order.status!=0
+ }" class="alert">
+  <div [ngSwitch]="order.status">
+    <div *ngSwitchCase="0">
+      Order status: Ready to ship
+    </div>
+    <div *ngSwitchCase="1" >
+      This order has already shipped. Do not pick it.
+
+    </div>
+    <div *ngSwitchCase="2" >
+      Do not pick this order. A supervisor needs to review it.
+    </div>
+    <div *ngSwitchDefault></div>
+  </div>
 </div>
 <div class="alert alert-info">
   <h3>Instructions</h3>
-  <ol>
-    <li>Click a <i>Get best location</i> button and the system will tell you the best place to pick up your item.</li>
-    <li>Pick the items and check the <i>Got it</i> box.</li>
-    <li>After you've picked, packed, and shipped your last item, click <i>Mark as shipped</i></li>
+
+  <ol class="alert" [ngClass]="{'alert-danger': order.status===2}">
+    <li>Click a
+      <i>Get best location</i> button and the system will tell you the best place to pick up your item.</li>
+    <li>Pick the items and check the
+      <i>Got it</i> box.</li>
+    <li>After you've picked, packed, and shipped your last item, click
+      <i>Mark as shipped</i>
+    </li>
   </ol>
+
   <p> If there's a problem and you need a supervisor to look at it, hit the "Problem" button.</p>
 </div>
 <section id="orderInfo">
@@ -35,20 +56,21 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><input class="big-checkbox" type="checkbox"></td>
-        <button class="btn test-blue">Get best location</button>
-        <td>30</td>
-        <td><img src="/assets/images/productImages/30.jpg"></td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td><input class="big-checkbox"  type="checkbox"></td>
-        <button class="btn">Get best location</button>
-        <td>54</td>
-        <td><img src="/assets/images/productImages/54.jpg"></td>
-        <td>20</td>
-      </tr>
+        <tr *ngFor="let line of order.lines">
+            <td>
+              <input type="checkbox" class="big-checkbox">
+            </td>
+            <span *ngIf="line.locationID else locationButton">{{line.locationID}}</span>
+            <ng-template #locationButton>
+              <button class="btn">Get best location</button>
+            </ng-template>
+  
+            <td>{{line.locationID}}</td>
+            <td>
+              <img src="{{line.product.imageUrl}}">
+            </td>
+            <td>{{line.quantity}}</td>
+          </tr>
     </tbody>
   </table>
 </section>
