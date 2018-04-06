@@ -22,6 +22,19 @@ export class ShipOrderComponent implements OnInit {
 
   constructor(private _route:ActivatedRoute) { }
 
+  public getBestLocation(orderLine) {
+    orderLine.locationID = "01A1A";
+    console.log(orderLine);
+  };
+
+  public markAsShipped(order) {
+    order.status = 1;
+  };
+
+  public markWithProblem(order) {
+    order.status = 2;
+  };
+
   ngOnInit() {
     const id = this._route.snapshot.params['orderID'];
     this.order = new Order();
