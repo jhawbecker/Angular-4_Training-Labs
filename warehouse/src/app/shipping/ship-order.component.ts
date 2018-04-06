@@ -35,6 +35,10 @@ export class ShipOrderComponent implements OnInit {
     order.status = 2;
   };
 
+  public isReadyToShip(order) {
+    return order.lines.every(line => line.picked);
+  }
+
   ngOnInit() {
     const id = this._route.snapshot.params['orderID'];
     this.order = new Order();

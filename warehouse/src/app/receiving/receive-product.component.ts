@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceiveProductComponent implements OnInit {
   private showForm: boolean;
+  private receivedProducts = [];
+  private productID: number;
+  private quantity: number;
 
   constructor() { }
 
@@ -14,8 +17,10 @@ export class ReceiveProductComponent implements OnInit {
     this.showForm = true;
   }
 
-  public receiveProduct() {
-    alert("Received Product!");
+  public receiveProduct(productID, quantity) {
+    this.receivedProducts.push({ productID, quantity });
+    this.productID = undefined;
+    this.quantity = undefined;
   }
 
   public finishReceiving() {

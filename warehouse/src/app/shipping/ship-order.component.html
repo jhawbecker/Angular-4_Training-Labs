@@ -58,7 +58,7 @@
     <tbody>
       <tr *ngFor="let line of order.lines">
         <td>
-          <input type="checkbox" class="big-checkbox">
+          <input type="checkbox" name="picked" [(ngModel)]="line.picked" class="big-checkbox">
         </td>
         <span *ngIf="line.locationID else locationButton">{{line.locationID}}</span>
         <ng-template #locationButton>
@@ -75,7 +75,7 @@
   </table>
 </section>
 <section id="markAsShipped">
-  <button class="btn btn-lg btn-primary" (click)="markAsShipped(order)">Mark as shipped</button>
+  <button (click)="markAsShipped(order)" class="btn btn-lg btn-primary" [disabled]="!isReadyToShip(order)">Mark as shipped</button>
   <button class="btn btn-lg btn-danger" (click)="markWithProblem(order)">Problem</button>
 </section>
 <section id="shippingLabel">
