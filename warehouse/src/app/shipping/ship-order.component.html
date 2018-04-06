@@ -6,11 +6,11 @@
     <div *ngSwitchCase="0">
       Order status: Ready to ship
     </div>
-    <div *ngSwitchCase="1" >
+    <div *ngSwitchCase="1">
       This order has already shipped. Do not pick it.
 
     </div>
-    <div *ngSwitchCase="2" >
+    <div *ngSwitchCase="2">
       Do not pick this order. A supervisor needs to review it.
     </div>
     <div *ngSwitchDefault></div>
@@ -56,21 +56,21 @@
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let line of order.lines">
-            <td>
-              <input type="checkbox" class="big-checkbox">
-            </td>
-            <span *ngIf="line.locationID else locationButton">{{line.locationID}}</span>
-            <ng-template #locationButton>
-              <button class="btn" (click)="getBestLocation(line)">Get best location</button>
-            </ng-template>
-  
-            <td>{{line.locationID}}</td>
-            <td>
-              <img src="{{line.product.imageUrl}}">
-            </td>
-            <td>{{line.quantity}}</td>
-          </tr>
+      <tr *ngFor="let line of order.lines">
+        <td>
+          <input type="checkbox" class="big-checkbox">
+        </td>
+        <span *ngIf="line.locationID else locationButton">{{line.locationID}}</span>
+        <ng-template #locationButton>
+          <button class="btn" (click)="getBestLocation(line)">Get best location</button>
+        </ng-template>
+
+        <td>{{line.locationID}}</td>
+        <td>
+          <img src="{{line.product.imageUrl}}">
+        </td>
+        <td>{{line.quantity}}</td>
+      </tr>
     </tbody>
   </table>
 </section>

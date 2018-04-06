@@ -8,9 +8,9 @@ describe('ReceiveProductComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReceiveProductComponent ]
+      declarations: [ReceiveProductComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

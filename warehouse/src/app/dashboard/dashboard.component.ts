@@ -149,7 +149,7 @@ export class DashboardComponent implements OnInit {
         ],
         "status": 1
       }
-    
+
     ];
     console.log(this.orders);
   }

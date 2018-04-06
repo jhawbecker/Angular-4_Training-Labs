@@ -20,7 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ShipOrderComponent implements OnInit {
   private order: Order;
 
-  constructor(private _route:ActivatedRoute) { }
+  constructor(private _route: ActivatedRoute) { }
 
   public getBestLocation(orderLine) {
     orderLine.locationID = "01A1A";

@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./receive-product.component.css']
 })
 export class ReceiveProductComponent implements OnInit {
-  private showForm:boolean;
-  
+  private showForm: boolean;
+
   constructor() { }
 
   public saveTrackingNumber() {

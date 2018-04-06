@@ -8,9 +8,9 @@ describe('ShipOrderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShipOrderComponent ]
+      declarations: [ShipOrderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
