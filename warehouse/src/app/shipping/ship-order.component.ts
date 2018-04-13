@@ -35,7 +35,7 @@ export class ShipOrderComponent implements OnInit {
     order.status = 2;
   };
 
-  public isReadyToShip(order) {
+  public isReadyToShip(order) {//this was already created but was part of this lab to add (this lab should have been done between lab 5 and 6)
     return order.lines.every(line => line.picked);
   }
 
@@ -72,6 +72,7 @@ export class ShipOrderComponent implements OnInit {
     line2.product.imageUrl = "/assets/images/productImages/67.jpg";
     this.order.lines.push(line1);
     this.order.lines.push(line2);
+    //this.order.lines.forEach(line => line.picked = true);
 
     /*    for (let x; x = 1 ; x< 5) {
         this.order.lines.push(new OrderLine);

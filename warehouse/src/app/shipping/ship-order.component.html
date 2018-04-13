@@ -75,6 +75,7 @@
   </table>
 </section>
 <section id="markAsShipped">
+  <!--//this was already created but was part of this lab to add (this lab should have been done between lab 5 and 6)-->
   <button (click)="markAsShipped(order)" class="btn btn-lg btn-primary" [disabled]="!isReadyToShip(order)">Mark as shipped</button>
   <button class="btn btn-lg btn-danger" (click)="markWithProblem(order)">Problem</button>
 </section>
