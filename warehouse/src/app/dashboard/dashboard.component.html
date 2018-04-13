@@ -1,14 +1,16 @@
 <section class="panel panel-primary">
   <div class="panel-heading">
-    Orders ready to be picked: 3
+    Orders ready to be picked: {{orders.length}}
   </div>
   <div class="panel-body">
-    <p class="alert alert-danger">
+    <p class="alert alert-danger" *ngIf="orders.length; else allDone">
       Our customers are our top priority! Please make sure these orders are picked, packed, and shipped as soon as possible.
     </p>
-    <p class="alert alert-info">
-      All orders have been taken care of.
-    </p>
+    <ng-template #allDone>
+      <p class="alert alert-info">
+	All orders have been taken care of.
+      </p>
+    </ng-template>
   </div>
   <nw-list-of-orders [orders]="orders"></nw-list-of-orders>
   <!-- End of container div -->

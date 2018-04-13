@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { prepareOrders } from '../shared/orders';
+import { Http } from '@angular/http';
+import { Order } from '../shared/Order';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'nw-orders-to-ship',
@@ -8,10 +10,20 @@ import { prepareOrders } from '../shared/orders';
 })
 export class OrdersToShipComponent implements OnInit {
 
-  constructor() { }
+  private orders: Order[] = new Array<Order>();
+
+  constructor(private _http: Http) {
+    this.getOrdersReadyToShip();
+  }
+
+  getOrdersReadyToShip() {
+    this._http.get('/api/orders/readyToShip')
+      .toPromise()
+      .then((response) => { this.orders = response.json(); });
+  }
 
   ngOnInit() {
-    this.orders = prepareOrders();
-      }
-
+    this.getOrdersReadyToShip();
+  }
 }
+
