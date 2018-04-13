@@ -9,6 +9,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { ShipOrderComponent } from './shipping/ship-order.component';
 import { OrdersToShipComponent } from './shipping/orders-to-ship.component';
 import { ReceiveProductComponent } from './receiving/receive-product.component';
+import { ListOfOrdersComponent } from './shipping/list-of-orders.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ReceiveProductComponent } from './receiving/receive-product.component';
     InventoryComponent,
     ShipOrderComponent,
     OrdersToShipComponent,
-    ReceiveProductComponent
+    ReceiveProductComponent,
+    ListOfOrdersComponent
   ],
   imports: [
     BrowserModule,

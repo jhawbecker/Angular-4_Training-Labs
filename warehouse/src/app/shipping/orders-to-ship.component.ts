@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { prepareOrders } from '../shared/orders';
 
 @Component({
   selector: 'nw-orders-to-ship',
@@ -10,6 +11,7 @@ export class OrdersToShipComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
+    this.orders = prepareOrders();
+      }
 
 }
