@@ -1,0 +1,13 @@
+#orderLines img{
+    height: 50px;
+}
+#orderLines td{
+    color: red;
+}
+.big-checkbox{
+    transform: scale(2);
+  }
+
+  .test-blue{
+    background-color: blue;
+  }

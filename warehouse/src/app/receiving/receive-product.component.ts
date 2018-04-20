@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from '../shared/product';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'nw-receive-product',
@@ -6,28 +9,61 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./receive-product.component.css']
 })
 export class ReceiveProductComponent implements OnInit {
-  private showForm: boolean;
+
+  private showForm:boolean;
   private receivedProducts = [];
   private productID: number;
-  private quantity: number;
+  private quantity: number;  
+  
+    constructor(private _http:Http) {}
 
-  constructor() { }
-
-  public saveTrackingNumber() {
-    this.showForm = true;
+  public saveTrackingNumber(n)
+  {
+      console.log("Save tracking #" + n);
+      this.showForm = true;
   }
 
-  public receiveProduct(productID, quantity) {
-    this.receivedProducts.push({ productID, quantity });
-    this.productID = undefined;
-    this.quantity = undefined;
+  public receiveProduct(productID: number, quantity: number)
+  {
+      console.log("Received " + quantity + " of product " + productID);
+      let product = new Product();
+      this._http.get('/api/products/' + productID)
+	  .toPromise()
+	  .then((response) => {
+	      console.log(response);
+	      // Unfortunately, the REST endpoint is not returning 404 when a product is not foumd; it returns 200 with an empty body!  :-(
+
+	      if (response.headers.get("content-length") === "0")
+	      {
+		  product.name = "NOT FOUND"
+		  product.productID = productID;
+	      }
+	      else
+	      {
+		  const p:any = response.json();
+		  product.productID = p.productID;
+		  product.name = p.name;
+		  product.description = p.description;
+		  product.imageUrl = p.imageUrl;
+		  product.featured = p.featured;
+	      }
+
+	      this.receivedProducts.push({'product': product, 'quantity': quantity});
+	  });
+
+      this.productID = undefined;
+      this.quantity = undefined;
+
+      console.log(this.receivedProducts);
   }
 
-  public finishReceiving() {
-    alert("Finished Receive");
+  public finishedReceiving()
+  {
+      console.log("Finished receiving");
   }
 
   ngOnInit() {
   }
 
 }
+

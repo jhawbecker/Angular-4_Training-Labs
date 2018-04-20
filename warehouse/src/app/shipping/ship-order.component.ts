@@ -1,84 +1,113 @@
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../shared/order';
 import { OrderLine } from '../shared/orderLine';
 import { Product } from '../shared/product';
 import { ActivatedRoute } from '@angular/router';
 
+import { Location } from '../shared/location';
+
 @Component({
   selector: 'nw-ship-order',
   templateUrl: './ship-order.component.html',
   styleUrls: ['./ship-order.component.css'],
-  styles: [`.big-checkbox{
-    transform: scale(2);
-  }`, `
-  .test-blue{
-    background-color: blue;
-  }
-    `]
+  // styles: [`.big-checkbox{
+  //   transform: scale(2);
+  // }`, `
+  // .test-blue{
+  //   background-color: blue;
+  // }
+  //   `]
 })
 
 export class ShipOrderComponent implements OnInit {
-  private order: Order;
+  private order: Order = new Order();
 
-  constructor(private _route: ActivatedRoute) { }
+  constructor(private _route: ActivatedRoute, private _http: Http) {
+    this.loadOrder(this._route.snapshot.params['orderID']);
+  }
 
   public getBestLocation(orderLine) {
-    orderLine.locationID = "01A1A";
-    console.log(orderLine);
-  };
+    this._http.get('/api/locations/forProduct/' + orderLine.productID)
+      .toPromise()
+      .then((response) => {
+        const locations: Array<Location> = response.json(); // We get back an array of Location objects.
+        if (locations.length > 0) {
+          const location: Location = locations[0]; // For now, take first.  Really should make sure it has enough stock
+          orderLine.locationID = location.locationID;
+          orderLine.location = location;
+        }
+        else orderLine.locationID = "none";
+      });
+  }
 
   public markAsShipped(order) {
+    this._http.patch('/api/orders/' + order.orderID + '/markAsShipped', "")
+      .toPromise()
+      .then((response) => console.log("Response from markAsShipped: " + response));
     order.status = 1;
   };
 
   public markWithProblem(order) {
+    this._http.patch('/api/orders/' + order.orderID + '/markAsProblem', "")
+      .toPromise()
+      .then((response) => console.log("Response from markAsProblem: " + response));
     order.status = 2;
   };
 
   public isReadyToShip(order) {//this was already created but was part of this lab to add (this lab should have been done between lab 5 and 6)
-    return order.lines.every(line => line.picked);
+    return order.lines ? order.lines.every(line => line.picked) : false;
+  }
+
+  public loadOrder(orderID: number)	// This loads the order from the REST endpoint.  But the JSON returned does *NOT* match our structure, so we have to map it.
+  {
+    this._http.get('/api/orders/' + orderID)
+      .toPromise()
+      .then((response) => {
+        const o: any = response.json();
+        let order = new Order();
+        order.orderID = o.orderID;
+        order.customerID = o.customerID;
+        order.status =  o.status;
+        order.orderDate = o.orderDate;
+        order.shipVia = o.shipVia;
+        order.shipping = o.shipping;
+        order.tax = o.tax;
+        order.shipName = o.shipName;
+        order.shipAddress = o.shipAddress;
+        order.shipCity = o.shipCity;
+        order.shipRegion = o.shipRegion;
+        order.shipPostalCode = o.shipPostalCode;
+        order.shipCountry = o.shipCountry;
+        order.lines = new Array<OrderLine>();
+        o.lines.forEach(line => {
+          let l: OrderLine = new OrderLine();
+          l.quantity = line.quantity;
+          l.productID = line.productID;
+          l.price = line.unitPrice;
+          l.picked = false;
+          l.product = new Product();
+          this._http.get('/api/products/' + l.productID)
+            .toPromise()
+            .then((response) => {
+              const p: any = response.json();
+              l.product.productID = p.productID;
+              l.product.name = p.name;
+              l.product.description = p.description;
+              l.product.imageUrl = p.imageUrl;
+              l.product.featured = p.featured;
+            });
+          l.location = new Location();
+          order.lines.push(l);
+        });
+        this.order = order;
+        alert(JSON.stringify(this.order));
+      });
   }
 
   ngOnInit() {
-    const id = this._route.snapshot.params['orderID'];
-    this.order = new Order();
-    this.order.orderID = id;
-    this.order.orderDate = new Date();
-    this.order.shipVia = 1;
-    this.order.shipping = 10;
-    this.order.shipName = "Jonathan Hawbecker";
-    this.order.shipAddress = "777 Placeholder Pl";
-    this.order.shipCity = "Camp Hill";
-    this.order.shipRegion = "PA";
-    this.order.shipCountry = "USA";
-    this.order.shipPostalCode = "5T4N-L33";
-    this.order.status = 0;
-    this.order.lines = [];
-    const line1 = new OrderLine();
-    line1.locationID = "02B1C";
-    line1.price = 30.00;
-    line1.productID = 55;
-    line1.quantity = 2;
-    line1.product = new Product();
-    line1.product.name = "Oreos";
-    line1.product.imageUrl = "/assets/images/productImages/34.jpg";
-    const line2 = new OrderLine();
-    //line2.locationID = "05A3As";
-    line2.price = 30.00;
-    line2.productID = 45;
-    line2.quantity = 7;
-    line2.product = new Product();
-    line2.product.name = "Peanuts";
-    line2.product.imageUrl = "/assets/images/productImages/67.jpg";
-    this.order.lines.push(line1);
-    this.order.lines.push(line2);
-    //this.order.lines.forEach(line => line.picked = true);
-
-    /*    for (let x; x = 1 ; x< 5) {
-        this.order.lines.push(new OrderLine);
-        this.order.lines[x].product.imageUrl = 'assets/images/productImages/${x}.jpg'
-        
-       } */
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { Order } from '../shared/Order';
+import { Order } from '../shared/order';
 import 'rxjs/add/operator/toPromise';
 
 @Component({

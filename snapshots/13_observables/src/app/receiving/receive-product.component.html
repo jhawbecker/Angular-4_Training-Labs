@@ -5,8 +5,11 @@
   <ol>
     <li>Scan or enter a tracking number.</li>
     <li>Enter a product ID if you know it or begin entering a description and choose from options</li>
-    <li>Enter the number of items and check the <i>Got it</i> box.</li>
-    <li>After you've picked, packed, and shipped your last item, click <i>Finished receiving</i></li>
+    <li>Enter the number of items and check the
+      <i>Got it</i> box.</li>
+    <li>After you've picked, packed, and shipped your last item, click
+      <i>Finished receiving</i>
+    </li>
   </ol>
   <p> If there's a problem and you need a supervisor to look at it, hit the "Problem" button.</p>
 </div>
@@ -54,7 +57,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of receivedProducts">
-          <td><img alt="{{item.product.description}}" src="{{item.product.imageUrl}}"></td>
+          <td>
+            <img alt="{{item.product.description}}" src="{{item.product.imageUrl}}">
+          </td>
           <td>{{item.product.productID}}</td>
           <td>{{item.product.name}}</td>
           <td>{{item.quantity}}</td>

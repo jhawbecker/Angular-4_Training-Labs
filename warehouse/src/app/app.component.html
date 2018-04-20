@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu">&equiv;</button>
-        <a class="navbar-brand" href="#">Northwind WMS</a>
+        <a class="navbar-brand" [routerLink]="['']">Northwind WMS</a>
       </div>
       <div class="collapse navbar-collapse" id="header-menu">
         <ul class="nav navbar-nav">
@@ -26,7 +26,11 @@
 </header>
 <main>
   <router-outlet></router-outlet>
-  <!-- <nw-ship-order></nw-ship-order> -->
-  <!-- <nw-receive-product></nw-receive-product> -->
-  <!-- <nw-dashboard></nw-dashboard>-->
+  <!--
+<nw-dashboard></nw-dashboard>
+<nw-receive-product></nw-receive-product>
+<nw-dashboard></nw-dashboard>
+<nw-orders-to-ship></nw-orders-to-ship>
+<nw-ship-order></nw-ship-order>
+-->
 </main>
